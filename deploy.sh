@@ -65,19 +65,6 @@ print_banner() {
     echo -e "${NC}"
 }
 
-check_ruby_version() {
-    local need="3.2"
-    local current
-    current=$(ruby -e "puts RUBY_VERSION" 2>/dev/null || true)
-    if [ -z "$current" ]; then
-        log_error "Ruby가 설치되어 있지 않습니다. Ruby ${need} 이상을 설치해주세요 (rbenv 권장)."
-    fi
-    if ! ruby -e "exit 1 unless Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('${need}')" 2>/dev/null; then
-        log_error "Ruby ${need} 이상이 필요합니다. 현재: ${current}. rbenv로 설치: rbenv install 4.0.0 && rbenv global 4.0.0"
-    fi
-    log_success "Ruby 버전 확인 완료 ($(ruby -e "puts RUBY_VERSION"))"
-}
-
 check_rails_master_key() {
     set -a
     [ -f .env ] && source .env
@@ -204,7 +191,6 @@ main() {
     log_info "배포를 시작합니다..."
     echo ""
 
-    check_ruby_version
     check_rails_master_key
 
     if [ -f "$SYSTEMD_SERVICE" ]; then

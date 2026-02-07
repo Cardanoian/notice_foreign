@@ -50,14 +50,12 @@ print_banner() {
 }
 
 check_rails_master_key() {
-    if [ -f .env.production ]; then
-        set -a
-        # shellcheck source=/dev/null
-        source .env.production
-        set +a
-    fi
+    set -a
+    [ -f .env ] && source .env
+    [ -f .env.production ] && source .env.production
+    set +a
     if [ -z "${RAILS_MASTER_KEY}" ]; then
-        log_error "RAILS_MASTER_KEY가 필요합니다. export 하거나 .env.production에 넣어주세요."
+        log_error "RAILS_MASTER_KEY가 필요합니다. config/master.key 내용을 .env 또는 .env.production 에 RAILS_MASTER_KEY=... 로 넣거나 export 해주세요."
     fi
     log_success "RAILS_MASTER_KEY 확인 완료"
 }

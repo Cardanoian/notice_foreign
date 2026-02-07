@@ -256,7 +256,7 @@ body {
   border-radius: 0.875rem;
   padding: 0.65rem 1.25rem;
   font-weight: 500;
-  color: #94a3b8;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -299,7 +299,7 @@ body {
   outline: none;
   transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
 }
-.input-modern::placeholder { color: #64748b; }
+.input-modern::placeholder { color: #ffffff; }
 .input-modern:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(59,125,216,0.15), 0 0 20px rgba(59,125,216,0.08);
@@ -307,7 +307,7 @@ body {
 }
 .input-modern:disabled {
   background: rgba(255,255,255,0.02);
-  color: #475569;
+  color: #e2e8f0;
   cursor: not-allowed;
 }
 
@@ -345,7 +345,7 @@ body {
   resize: vertical;
   transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
 }
-.textarea-modern::placeholder { color: #64748b; }
+.textarea-modern::placeholder { color: #ffffff; }
 .textarea-modern:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(59,125,216,0.15), 0 0 20px rgba(59,125,216,0.08);
@@ -535,13 +535,13 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #64748b;
+  color: #ffffff;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .table-modern tbody td {
   padding: 1rem 1.25rem;
   font-size: 0.875rem;
-  color: #cbd5e1;
+  color: #ffffff;
   border-bottom: 1px solid rgba(255,255,255,0.03);
   transition: all 0.2s ease;
 }
@@ -612,7 +612,7 @@ body {
   box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 30px rgba(59,125,216,0.06);
   overflow: hidden;
 }
-.search-dropdown li a { transition: all 0.2s ease; color: #cbd5e1; }
+.search-dropdown li a { transition: all 0.2s ease; color: #ffffff; }
 .search-dropdown li a:hover {
   background: rgba(59,125,216,0.08);
   color: #e2e8f0;
@@ -629,7 +629,7 @@ body {
   overflow: hidden;
   animation: fadeInDown 0.2s ease both;
 }
-.lang-dropdown button { color: #cbd5e1; transition: all 0.2s ease; }
+.lang-dropdown button { color: #ffffff; transition: all 0.2s ease; }
 .lang-dropdown button:hover {
   background: rgba(59,125,216,0.08);
   color: #e2e8f0;
@@ -727,7 +727,7 @@ body {
   border: 1.5px dashed rgba(255,255,255,0.12);
   border-radius: 0.875rem;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
 }

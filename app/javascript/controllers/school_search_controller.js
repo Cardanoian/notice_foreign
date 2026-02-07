@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["input", "results", "location"]
+  static values = { noResults: String, schoolsSuffix: String }
 
   connect() {
     this.schools = []
@@ -47,7 +48,7 @@ export default class extends Controller {
       const response = await fetch(`/api/schools?location=${encodeURIComponent(location)}`)
       this.schools = await response.json()
       this.inputTarget.disabled = false
-      this.inputTarget.placeholder = `${this.schools.length}개 학교에서 검색...`
+      this.inputTarget.placeholder = `${this.schools.length}${this.schoolsSuffixValue}`
       this.inputTarget.focus()
     } catch (error) {
       console.error('Failed to load schools:', error)
@@ -71,7 +72,7 @@ export default class extends Controller {
   renderResults(schools) {
     if (schools.length === 0) {
       this.resultsTarget.innerHTML = `
-        <li class="px-6 py-4 text-slate-500">검색 결과가 없습니다</li>
+        <li class="px-6 py-4 text-white">${this.noResultsValue}</li>
       `
     } else {
       this.resultsTarget.innerHTML = schools.map(school => `
@@ -82,7 +83,7 @@ export default class extends Controller {
              data-school-id="${school.id}"
              data-school-name="${school.name}">
             <div class="font-medium text-slate-200">${school.name}</div>
-            ${school.location ? `<div class="text-sm text-slate-500">${school.location}</div>` : ''}
+            ${school.location ? `<div class="text-sm text-white">${school.location}</div>` : ''}
           </a>
         </li>
       `).join('')

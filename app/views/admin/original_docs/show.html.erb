@@ -4,17 +4,17 @@
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
       </svg>
-      목록으로 돌아가기
+      <%= t('admin.docs.back_to_list') %>
     <% end %>
   </div>
 
   <div class="glass-card-static overflow-hidden anim-fade-up delay-100">
     <div class="px-6 py-5 border-b border-white/5">
-      <h1 class="text-xl font-bold text-white">문서 상세</h1>
+      <h1 class="text-xl font-bold text-white"><%= t('admin.show.title') %></h1>
       <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
         <span class="badge badge-blue font-mono">#<%= @original_doc.id %></span>
-        <span class="text-slate-400"><%= @original_doc.school.name %></span>
-        <span class="text-slate-500"><%= @original_doc.uploaded_at&.strftime('%Y-%m-%d %H:%M') %></span>
+        <span class="text-white"><%= @original_doc.school.name %></span>
+        <span class="text-white"><%= @original_doc.uploaded_at&.strftime('%Y-%m-%d %H:%M') %></span>
         <% status_badge = { 'pending' => 'badge-yellow', 'processing' => 'badge-blue', 'completed' => 'badge-green', 'failed' => 'badge-coral' } %>
         <span class="badge <%= status_badge[@original_doc.status] %>">
           <%= @original_doc.status %>
@@ -25,8 +25,8 @@
     <div class="px-6 py-5">
       <h2 class="text-base font-bold text-white mb-4 flex items-center gap-2">
         <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
-        번역 언어 목록
-        <span class="badge badge-teal"><%= @docs.count %>개</span>
+        <%= t('admin.show.translation_list') %>
+        <span class="badge badge-teal"><%= @docs.count %><%= t('admin.show.count_suffix') %></span>
       </h2>
 
       <% if @docs.any? %>
@@ -34,9 +34,9 @@
           <table class="table-modern">
             <thead>
               <tr>
-                <th>언어</th>
-                <th>제목</th>
-                <th>생성일</th>
+                <th><%= t('admin.show.table_language') %></th>
+                <th><%= t('admin.show.table_title') %></th>
+                <th><%= t('admin.show.table_created') %></th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@
                     </span>
                   </td>
                   <td class="text-white font-medium"><%= doc.title %></td>
-                  <td class="text-slate-400"><%= doc.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+                  <td class="text-white"><%= doc.created_at.strftime('%Y-%m-%d %H:%M') %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -56,8 +56,8 @@
         </div>
       <% else %>
         <div class="text-center py-12">
-          <svg class="w-10 h-10 mx-auto mb-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
-          <p class="text-slate-500">아직 번역된 문서가 없습니다.</p>
+          <svg class="w-10 h-10 mx-auto mb-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          <p class="text-white"><%= t('admin.show.no_translations') %></p>
         </div>
       <% end %>
     </div>

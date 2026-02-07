@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["messages", "input"]
-  static values = { docId: Number }
+  static values = { docId: Number, errorPrefix: String, serverError: String }
 
   connect() {
     this.loadHistory()
@@ -55,14 +55,14 @@ export default class extends Controller {
       this.removeLoading()
       
       if (data.error) {
-        this.appendMessage('assistant', `오류: ${data.error}`)
+        this.appendMessage('assistant', `${this.errorPrefixValue}: ${data.error}`)
       } else {
         this.appendMessage('assistant', data.response)
         history.push({ role: 'assistant', content: data.response })
       }
     } catch (error) {
       this.removeLoading()
-      this.appendMessage('assistant', '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
+      this.appendMessage('assistant', this.serverErrorValue)
     }
 
     this.saveHistory(history)

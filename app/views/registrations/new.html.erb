@@ -1,0 +1,96 @@
+<div class="max-w-lg mx-auto pt-8 sm:pt-16">
+  <div class="glass-card-static p-8 sm:p-10 anim-fade-scale">
+    <div class="text-center mb-10">
+      <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-[#E85D5D] to-[#3B7DD8] flex items-center justify-center shadow-lg shadow-blue-500/25 anim-float">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+      </div>
+      <h1 class="text-2xl font-extrabold text-white"><%= t('registrations.title') %></h1>
+      <p class="text-white mt-2 text-sm"><%= t('registrations.description') %></p>
+    </div>
+
+    <%= form_with model: @user, url: registration_path, class: "space-y-6" do |form| %>
+      <% if @user.errors.any? %>
+        <div class="flash-error">
+          <ul class="text-sm space-y-1">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :email_address, t('registrations.email'), class: "block text-sm font-semibold text-white mb-2.5" %>
+        <%= form.email_field :email_address,
+            required: true,
+            autofocus: true,
+            autocomplete: "email",
+            placeholder: t('registrations.email_placeholder'),
+            class: "input-modern" %>
+      </div>
+
+      <div>
+        <%= form.label :password, t('registrations.password'), class: "block text-sm font-semibold text-white mb-2.5" %>
+        <%= form.password_field :password,
+            required: true,
+            autocomplete: "new-password",
+            placeholder: t('registrations.password_placeholder'),
+            maxlength: 72,
+            class: "input-modern" %>
+      </div>
+
+      <div>
+        <label for="password_confirmation" class="block text-sm font-semibold text-white mb-2.5"><%= t('registrations.password_confirmation') %></label>
+        <input
+          type="password"
+          id="password_confirmation"
+          name="password_confirmation"
+          required
+          autocomplete="new-password"
+          placeholder="<%= t('registrations.password_confirmation_placeholder') %>"
+          maxlength="72"
+          class="input-modern"
+        />
+      </div>
+
+      <div>
+        <%= form.label :school_id, t('registrations.school'), class: "block text-sm font-semibold text-white mb-2.5" %>
+        <%= form.collection_select :school_id, @schools, :id, :name, { prompt: t('registrations.school_placeholder') }, class: "select-modern" %>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-white mb-2"><%= t('registrations.languages') %></label>
+        <p class="text-sm text-white mb-4"><%= t('registrations.languages_description') %></p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <% User::AVAILABLE_LANGUAGES.each do |code, name| %>
+            <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/6 bg-white/[0.02] hover:bg-white/[0.05] cursor-pointer transition-all has-[:checked]:border-blue-500/30 has-[:checked]:bg-blue-500/8 has-[:checked]:shadow-[0_0_15px_rgba(59,125,216,0.08)]">
+              <input
+                type="checkbox"
+                name="user[selected_languages][]"
+                value="<%= code %>"
+                <%= "checked" if code == "ko" %>
+                class="checkbox-modern"
+              />
+              <span class="text-sm text-white"><%= name %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <%= form.submit t('registrations.submit'), class: "btn-primary w-full justify-center text-base !py-3.5 cursor-pointer" %>
+      </div>
+
+      <div class="text-center">
+        <%= link_to t('registrations.already_have_account'), new_session_path, class: "text-sm text-white hover:text-blue-400 transition-colors" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-8">
+    <%= link_to root_path, class: "btn-ghost text-sm" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      <%= t('registrations.back_to_home') %>
+    <% end %>
+  </div>
+</div>

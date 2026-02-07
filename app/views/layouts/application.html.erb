@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="<%= current_lang %>">
   <head>
-    <title><%= content_for(:title) || "多이음 AI" %></title>
+    <title><%= content_for(:title) || t('app_name') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="다문화 안내장">
+    <meta name="application-name" content="<%= t('app_description') %>">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0f172a">
     <%= csrf_meta_tags %>
@@ -35,36 +35,35 @@
         <div class="flex items-center justify-between">
           <%= link_to root_path, class: "flex items-center gap-2.5 group" do %>
             <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#E85D5D] to-[#3B7DD8] flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow duration-300">
-              <%= image_tag "/icon.png", alt: "多이음 AI", class: "w-5 h-5" %>
+              <%= image_tag "/icon.png", alt: t('app_name'), class: "w-5 h-5" %>
             </div>
-            <span class="text-lg font-bold gradient-text tracking-tight">多이음 AI</span>
+            <span class="text-lg font-bold gradient-text tracking-tight"><%= t('app_name') %></span>
           <% end %>
 
           <div class="flex items-center gap-3">
-            <% unless authenticated? %>
-              <div class="relative" data-controller="language-selector" data-action="click@window->language-selector#close">
-                <button data-action="click->language-selector#toggle" class="btn-ghost text-sm" style="white-space:nowrap;min-width:7.5rem;justify-content:space-between;">
-                  <span data-language-selector-target="current">한국어</span>
-                  <svg style="width:0.75rem;height:0.75rem;flex-shrink:0;" class="text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                  </svg>
-                </button>
-                <div data-language-selector-target="menu" class="hidden absolute right-0 mt-2 w-40 lang-dropdown py-1 z-50">
-                  <button data-action="click->language-selector#select" data-lang="ko" class="w-full text-left px-4 py-2.5 text-sm">한국어</button>
-                  <button data-action="click->language-selector#select" data-lang="en" class="w-full text-left px-4 py-2.5 text-sm">English</button>
-                  <button data-action="click->language-selector#select" data-lang="zh" class="w-full text-left px-4 py-2.5 text-sm">中文</button>
-                  <button data-action="click->language-selector#select" data-lang="vi" class="w-full text-left px-4 py-2.5 text-sm">Tiếng Việt</button>
-                  <button data-action="click->language-selector#select" data-lang="ja" class="w-full text-left px-4 py-2.5 text-sm">日本語</button>
-                  <button data-action="click->language-selector#select" data-lang="es" class="w-full text-left px-4 py-2.5 text-sm">Español</button>
-                </div>
+            <div class="relative" data-controller="language-selector" data-action="click@window->language-selector#close">
+              <button data-action="click->language-selector#toggle" class="btn-ghost text-sm" style="white-space:nowrap;min-width:7.5rem;justify-content:space-between;">
+                <span data-language-selector-target="current">한국어</span>
+                <svg style="width:0.75rem;height:0.75rem;flex-shrink:0;" class="text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div data-language-selector-target="menu" class="hidden absolute right-0 mt-2 w-40 lang-dropdown py-1 z-50">
+                <button data-action="click->language-selector#select" data-lang="ko" class="w-full text-left px-4 py-2.5 text-sm">한국어</button>
+                <button data-action="click->language-selector#select" data-lang="en" class="w-full text-left px-4 py-2.5 text-sm">English</button>
+                <button data-action="click->language-selector#select" data-lang="zh" class="w-full text-left px-4 py-2.5 text-sm">中文</button>
+                <button data-action="click->language-selector#select" data-lang="vi" class="w-full text-left px-4 py-2.5 text-sm">Tiếng Việt</button>
+                <button data-action="click->language-selector#select" data-lang="ja" class="w-full text-left px-4 py-2.5 text-sm">日本語</button>
+                <button data-action="click->language-selector#select" data-lang="es" class="w-full text-left px-4 py-2.5 text-sm">Español</button>
               </div>
-            <% end %>
+            </div>
 
             <% if authenticated? %>
-              <%= link_to Current.user&.email_address, settings_path, class: "text-sm text-slate-400 hover:text-slate-200 transition-colors underline-offset-2 hover:underline" %>
-              <%= button_to "로그아웃", session_path, method: :delete, class: "btn-danger text-sm" %>
+              <%= link_to Current.user&.email_address, settings_path, class: "text-sm text-white hover:text-white transition-colors underline-offset-2 hover:underline" %>
+              <%= button_to t('nav.logout'), session_path, method: :delete, class: "btn-danger text-sm" %>
             <% else %>
-              <%= link_to "로그인", new_session_path, class: "btn-primary text-sm !py-2 !px-5" %>
+              <%= link_to t('nav.signup'), new_registration_path, class: "btn-ghost text-sm !py-2 !px-5" %>
+              <%= link_to t('nav.login'), new_session_path, class: "btn-primary text-sm !py-2 !px-5" %>
             <% end %>
           </div>
         </div>

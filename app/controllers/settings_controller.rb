@@ -8,7 +8,7 @@ class SettingsController < ApplicationController
     @user = Current.user
 
     if @user.update(user_params)
-      redirect_to settings_path, notice: "설정이 저장되었습니다."
+      redirect_to settings_path, notice: t("settings.saved")
     else
       @schools = School.all
       render :show, status: :unprocessable_entity

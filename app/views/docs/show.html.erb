@@ -1,10 +1,14 @@
-<div class="w-full pt-2" data-controller="chatbot" data-chatbot-doc-id-value="<%= @doc.id %>">
+<div class="w-full pt-2"
+     data-controller="chatbot"
+     data-chatbot-doc-id-value="<%= @doc.id %>"
+     data-chatbot-error-prefix-value="<%= t('docs.error_prefix') %>"
+     data-chatbot-server-error-value="<%= t('docs.server_error') %>">
   <div class="mb-6 anim-fade-up">
     <%= link_to school_path(@school), class: "btn-ghost text-sm" do %>
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
       </svg>
-      <%= @school.name %> 목록으로
+      <%= @school.name %> <%= t('docs.back_to_list') %>
     <% end %>
   </div>
 
@@ -18,13 +22,13 @@
               <%= @doc.language.upcase %>
             </span>
           </div>
-          <p class="text-sm text-slate-400 mt-2 flex items-center gap-1.5">
+          <p class="text-sm text-white mt-2 flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <%= @doc.original_doc.uploaded_at&.strftime('%Y년 %m월 %d일') %>
+            <%= @doc.original_doc.uploaded_at&.strftime(t('schools.date_format')) %>
           </p>
         </div>
         
-        <div class="p-5 sm:p-6 prose prose-invert prose-slate max-w-none prose-headings:text-white prose-p:text-slate-300 prose-a:text-blue-400 prose-strong:text-white">
+        <div class="p-5 sm:p-6 prose prose-invert prose-slate max-w-none prose-headings:text-white prose-p:text-white prose-a:text-blue-400 prose-strong:text-white">
           <div data-react-component="RemarkViewer" data-react-props="<%= { content: @doc.content }.to_json %>"></div>
         </div>
       </article>
@@ -38,18 +42,18 @@
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
             </div>
             <div>
-              <h2 class="font-bold text-white text-sm">AI 챗봇</h2>
-              <p class="text-xs text-slate-500">문서에 대해 질문하세요</p>
+              <h2 class="font-bold text-white text-sm"><%= t('docs.ai_chatbot') %></h2>
+              <p class="text-xs text-white"><%= t('docs.chatbot_description') %></p>
             </div>
           </div>
         </div>
         
         <div data-chatbot-target="messages" class="h-96 sm:h-[28rem] lg:h-[32rem] overflow-y-auto p-4 space-y-4">
-          <div class="text-center text-slate-500 text-sm py-12">
+          <div class="text-center text-white text-sm py-12">
             <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center anim-float">
-              <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
             </div>
-            문서 내용에 대해 궁금한 점을 질문해보세요
+            <%= t('docs.chatbot_placeholder') %>
           </div>
         </div>
         
@@ -58,14 +62,14 @@
             <input 
               type="text" 
               data-chatbot-target="input"
-              placeholder="질문을 입력하세요..."
+              placeholder="<%= t('docs.input_placeholder') %>"
               class="input-modern flex-1 min-w-0 !py-3 text-sm"
             />
             <button 
               type="submit"
               class="btn-primary !py-3 !px-5 text-sm shrink-0"
             >
-              <span>전송</span>
+              <span><%= t('docs.send') %></span>
             </button>
           </form>
         </div>

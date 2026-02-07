@@ -41,7 +41,9 @@ export default class extends Controller {
     this.updateLabel()
     this.menuTarget.classList.add("hidden")
 
-    Turbo.visit(window.location.pathname)
+    const url = new URL(window.location.href)
+    url.searchParams.set('lang', lang)
+    Turbo.visit(url.toString())
   }
 
   close(event) {

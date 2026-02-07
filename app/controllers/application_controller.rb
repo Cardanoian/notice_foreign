@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
     if cookies[:lang] != @current_lang
       cookies[:lang] = { value: @current_lang, expires: 1.year.from_now }
     end
+
+    I18n.locale = @current_lang.to_sym
   end
 
   def current_lang

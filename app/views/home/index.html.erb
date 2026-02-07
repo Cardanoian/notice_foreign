@@ -2,27 +2,30 @@
   <div class="text-center mb-14 anim-fade-up">
     <div class="inline-flex items-center gap-2 badge-blue mb-6 text-xs uppercase tracking-widest">
       <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3"><animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/></circle></svg>
-      AI-Powered
+      <%= t('home.badge') %>
     </div>
     <h1 class="text-4xl sm:text-5xl font-extrabold mb-5 leading-tight">
-      <span class="gradient-text">다문화 안내장</span>
+      <span class="gradient-text"><%= t('home.title') %></span>
       <br>
-      <span class="text-white/90">서비스</span>
+      <span class="text-white/90"><%= t('home.subtitle') %></span>
     </h1>
-    <p class="text-lg text-slate-400 max-w-md mx-auto">지역을 선택한 후 학교를 검색하세요</p>
+    <p class="text-lg text-white max-w-md mx-auto"><%= t('home.description') %></p>
     <hr class="neon-line-subtle max-w-[200px] mx-auto mt-8">
   </div>
 
-  <div data-controller="school-search" class="anim-fade-up delay-200">
+  <div data-controller="school-search"
+       data-school-search-no-results-value="<%= t('home.no_search_results') %>"
+       data-school-search-schools-suffix-value="<%= t('home.schools_count_suffix') %>"
+       class="anim-fade-up delay-200">
     <div class="glass-card-static p-6 sm:p-8 mb-6 anim-border-glow">
       <div class="mb-6">
-        <label class="block text-sm font-semibold text-slate-300 mb-3 tracking-wide uppercase">지역 선택</label>
+        <label class="block text-sm font-semibold text-white mb-3 tracking-wide uppercase"><%= t('home.select_region') %></label>
         <select
           data-school-search-target="location"
           data-action="change->school-search#selectLocation"
           class="select-modern text-lg"
         >
-          <option value="">지역을 선택하세요</option>
+          <option value=""><%= t('home.select_region_placeholder') %></option>
         </select>
       </div>
 
@@ -32,13 +35,13 @@
             type="text"
             data-school-search-target="input"
             data-action="input->school-search#search"
-            placeholder="학교 이름을 입력하세요..."
+            placeholder="<%= t('home.search_placeholder') %>"
             class="input-modern text-lg !py-4 !pl-14"
             autocomplete="off"
             disabled
           />
           <div class="absolute left-4 top-1/2 -translate-y-1/2">
-            <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
           </div>
@@ -53,12 +56,14 @@
     </div>
   </div>
 
-  <div class="mt-14 anim-fade-up delay-400" data-controller="recent-schools">
+  <div class="mt-14 anim-fade-up delay-400"
+       data-controller="recent-schools"
+       data-recent-schools-no-schools-value="<%= t('home.no_recent_schools') %>">
     <div class="flex items-center gap-3 mb-5">
       <div class="icon-box w-8 h-8 rounded-lg">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
-      <h2 class="text-base font-semibold text-slate-300 tracking-wide">최근 방문한 학교</h2>
+      <h2 class="text-base font-semibold text-white tracking-wide"><%= t('home.recent_schools') %></h2>
     </div>
     <div data-recent-schools-target="list" class="space-y-2">
     </div>

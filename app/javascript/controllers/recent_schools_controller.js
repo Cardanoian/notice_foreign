@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["list"]
+  static values = { noSchools: String }
 
   connect() {
     this.render()
@@ -12,7 +13,7 @@ export default class extends Controller {
     
     if (recent.length === 0) {
       this.listTarget.innerHTML = `
-        <p class="text-slate-500 text-sm">최근 방문한 학교가 없습니다</p>
+        <p class="text-white text-sm">${this.noSchoolsValue}</p>
       `
       return
     }

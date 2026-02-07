@@ -1,0 +1,49 @@
+<div class="max-w-md mx-auto pt-8 sm:pt-16">
+  <div class="glass-card-static p-8 sm:p-10 anim-fade-scale">
+    <div class="text-center mb-10">
+      <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-[#E85D5D] to-[#3B7DD8] flex items-center justify-center shadow-lg shadow-blue-500/25 anim-float">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h1 class="text-2xl font-extrabold text-white">관리자 로그인</h1>
+      <p class="text-slate-400 mt-2 text-sm">학교 관리자 계정으로 로그인하세요</p>
+    </div>
+
+    <%= form_with url: session_url, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :email_address, "이메일", class: "block text-sm font-semibold text-slate-300 mb-2.5" %>
+        <%= form.email_field :email_address,
+            required: true,
+            autofocus: true,
+            autocomplete: "username",
+            placeholder: "admin@example.com",
+            value: params[:email_address],
+            class: "input-modern" %>
+      </div>
+
+      <div>
+        <%= form.label :password, "비밀번호", class: "block text-sm font-semibold text-slate-300 mb-2.5" %>
+        <%= form.password_field :password,
+            required: true,
+            autocomplete: "current-password",
+            placeholder: "비밀번호를 입력하세요",
+            maxlength: 72,
+            class: "input-modern" %>
+      </div>
+
+      <div class="pt-2">
+        <%= form.submit "로그인", class: "btn-primary w-full justify-center text-base !py-3.5 cursor-pointer" %>
+      </div>
+
+      <div class="text-center">
+        <%= link_to "비밀번호를 잊으셨나요?", new_password_path, class: "text-sm text-slate-400 hover:text-blue-400 transition-colors" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-8">
+    <%= link_to root_path, class: "btn-ghost text-sm" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      홈으로 돌아가기
+    <% end %>
+  </div>
+</div>

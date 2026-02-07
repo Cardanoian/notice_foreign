@@ -1,0 +1,64 @@
+<div class="w-full max-w-6xl mx-auto pt-4">
+  <div class="flex items-center justify-between mb-8 anim-fade-up">
+    <div class="flex items-center gap-3">
+      <div class="icon-box">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </div>
+      <h1 class="text-2xl font-extrabold text-white">문서 관리</h1>
+    </div>
+    <%= link_to new_admin_original_doc_path, class: "btn-primary text-sm" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+      <span>새 문서 업로드</span>
+    <% end %>
+  </div>
+
+  <div class="glass-card-static overflow-hidden anim-fade-up delay-100">
+    <div class="overflow-x-auto">
+      <table class="table-modern">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>학교</th>
+            <th>업로드 날짜</th>
+            <th>상태</th>
+            <th>번역 문서</th>
+            <th>작업</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @original_docs.each do |doc| %>
+            <tr>
+              <td class="font-mono text-slate-500">#<%= doc.id %></td>
+              <td class="text-white font-medium"><%= doc.school.name %></td>
+              <td class="text-slate-400"><%= doc.uploaded_at&.strftime('%Y-%m-%d %H:%M') %></td>
+              <td>
+                <% status_badge = { 'pending' => 'badge-yellow', 'processing' => 'badge-blue', 'completed' => 'badge-green', 'failed' => 'badge-coral' } %>
+                <span class="badge <%= status_badge[doc.status] %>">
+                  <%= doc.status %>
+                </span>
+              </td>
+              <td>
+                <span class="badge badge-teal"><%= doc.docs.count %>개</span>
+              </td>
+              <td>
+                <div class="flex items-center gap-3">
+                  <%= link_to "보기", admin_original_doc_path(doc), class: "text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors" %>
+                  <%= button_to admin_original_doc_path(doc), method: :delete, data: { turbo_confirm: '정말 삭제하시겠습니까?' }, class: "btn-danger !py-1.5 !px-3 text-xs" do %>
+                    삭제
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @original_docs.empty? %>
+      <div class="text-center py-16">
+        <svg class="w-12 h-12 mx-auto mb-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <p class="text-slate-500">업로드된 문서가 없습니다</p>
+      </div>
+    <% end %>
+  </div>
+</div>

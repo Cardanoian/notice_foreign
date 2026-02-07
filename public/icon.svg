@@ -1,0 +1,49 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft Shadow -->
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="15" result="blur"/>
+    <feOffset in="blur" dx="0" dy="10" result="offsetBlur"/>
+    <feComponentTransfer>
+      <feFuncA type="linear" slope="0.3"/>
+    </feComponentTransfer>
+    <feMerge>
+      <feMergeNode in="offsetBlur"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+
+  <g filter="url(#shadow)">
+    <!-- Envelope Body (Back) -->
+    <rect x="56" y="128" width="400" height="280" rx="40" ry="40" fill="#FFC107" stroke="#FF6F00" stroke-width="12"/>
+    
+    <!-- Envelope Flap (Open) -->
+    <path d="M56 128 L256 300 L456 128" fill="#FFD54F" stroke="#FF6F00" stroke-width="12" stroke-linejoin="round"/>
+    
+    <!-- Paper Sheet inside (peeking out) -->
+    <rect x="80" y="80" width="352" height="150" rx="20" ry="20" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="8"/>
+    <line x1="120" y1="130" x2="392" y2="130" stroke="#BDBDBD" stroke-width="8" stroke-linecap="round"/>
+    <line x1="120" y1="170" x2="392" y2="170" stroke="#BDBDBD" stroke-width="8" stroke-linecap="round"/>
+
+    <!-- Envelope Front Fold -->
+    <path d="M56 408 L256 220 L456 408 Z" fill="#FFECB3" opacity="0.3"/> 
+    <!-- Just a shading hint, keeping it simple vector style -->
+
+    <!-- Cute Face on Envelope -->
+    <!-- Eyes -->
+    <circle cx="180" cy="280" r="15" fill="#3E2723"/>
+    <circle cx="332" cy="280" r="15" fill="#3E2723"/>
+    <!-- Smile -->
+    <path d="M220 310 Q256 340 292 310" fill="none" stroke="#3E2723" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- Translation Globe Icon (Badge) -->
+    <circle cx="140" cy="380" r="90" fill="#42A5F5" stroke="#1565C0" stroke-width="8"/>
+    <!-- Globe Grid Lines -->
+    <path d="M50 380 Q140 430 230 380" fill="none" stroke="#90CAF9" stroke-width="6" opacity="0.6"/>
+    <path d="M50 380 Q140 330 230 380" fill="none" stroke="#90CAF9" stroke-width="6" opacity="0.6"/>
+    <line x1="140" y1="290" x2="140" y2="470" stroke="#90CAF9" stroke-width="6" opacity="0.6"/>
+    
+    <!-- Translation Text Symbol -->
+    <text x="140" y="410" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#FFFFFF" text-anchor="middle">A</text>
+    <path d="M170 360 L190 360 L180 340 Z" fill="#FFFFFF"/> <!-- Arrow head hint -->
+  </g>
+</svg>

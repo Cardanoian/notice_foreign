@@ -1,0 +1,62 @@
+<div class="w-full max-w-2xl mx-auto pt-4">
+  <div class="flex items-center gap-3 mb-8 anim-fade-up">
+    <div class="icon-box">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    </div>
+    <h1 class="text-2xl font-extrabold text-white">사용자 설정</h1>
+  </div>
+
+  <div class="glass-card-static p-6 sm:p-8 anim-fade-up delay-100">
+    <%= form_with model: @user, url: settings_path, method: :patch, class: "space-y-7" do |form| %>
+      <% if @user.errors.any? %>
+        <div class="flash-error">
+          <ul class="text-sm space-y-1">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-300 mb-2.5">이메일</label>
+        <p class="px-4 py-3 bg-white/[0.03] border border-white/5 rounded-xl text-slate-400"><%= @user.email_address %></p>
+      </div>
+
+      <div>
+        <%= form.label :school_id, "소속 학교", class: "block text-sm font-semibold text-slate-300 mb-2.5" %>
+        <%= form.collection_select :school_id, @schools, :id, :name, { prompt: "학교를 선택하세요" }, class: "select-modern" %>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-300 mb-2">번역 언어 선택</label>
+        <p class="text-sm text-slate-500 mb-4">문서 업로드 시 선택된 언어로 자동 번역됩니다.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <% User::AVAILABLE_LANGUAGES.each do |code, name| %>
+            <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/6 bg-white/[0.02] hover:bg-white/[0.05] cursor-pointer transition-all has-[:checked]:border-blue-500/30 has-[:checked]:bg-blue-500/8 has-[:checked]:shadow-[0_0_15px_rgba(59,125,216,0.08)]">
+              <input
+                type="checkbox"
+                name="user[selected_languages][]"
+                value="<%= code %>"
+                <%= "checked" if @user.selected_languages.include?(code) %>
+                class="checkbox-modern"
+              />
+              <span class="text-sm text-slate-300"><%= name %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="pt-3">
+        <%= form.submit "저장", class: "btn-primary w-full justify-center text-base !py-3.5 cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-8 anim-fade-up delay-300">
+    <%= link_to admin_original_docs_path, class: "btn-ghost text-sm" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      문서 관리로 돌아가기
+    <% end %>
+  </div>
+</div>

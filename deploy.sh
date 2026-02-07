@@ -36,6 +36,22 @@ LETSENCRYPT_LIVE="/etc/letsencrypt/live/${DOMAIN}"
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$APP_DIR"
 
+# sudo 실행 시 rbenv 경로가 없으므로, 실제 사용자(SUDO_USER)의 rbenv를 PATH에 추가
+setup_rbenv_path() {
+    local user_home
+    if [ -n "${SUDO_USER}" ]; then
+        user_home=$(getent passwd "$SUDO_USER" 2>/dev/null | cut -d: -f6)
+        [ -z "$user_home" ] && user_home=$(eval echo "~$SUDO_USER")
+    else
+        user_home="${HOME}"
+    fi
+    local rbenv_root="${RBENV_ROOT:-$user_home/.rbenv}"
+    if [ -d "$rbenv_root" ]; then
+        export PATH="$rbenv_root/shims:$rbenv_root/bin:$PATH"
+    fi
+}
+setup_rbenv_path
+
 print_banner() {
     echo -e "${GREEN}"
     echo "╔═══════════════════════════════════════════════════════╗"

@@ -1,3 +1,5 @@
+<%= turbo_stream_from @original_doc %>
+
 <div class="w-full max-w-4xl mx-auto pt-4">
   <div class="mb-6 anim-fade-up">
     <%= link_to admin_original_docs_path, class: "btn-ghost text-sm" do %>
@@ -15,10 +17,7 @@
         <span class="badge badge-blue font-mono">#<%= @original_doc.id %></span>
         <span class="text-white"><%= @original_doc.school.name %></span>
         <span class="text-white"><%= @original_doc.uploaded_at&.strftime('%Y-%m-%d %H:%M') %></span>
-        <% status_badge = { 'pending' => 'badge-yellow', 'processing' => 'badge-blue', 'completed' => 'badge-green', 'failed' => 'badge-coral' } %>
-        <span class="badge <%= status_badge[@original_doc.status] %>">
-          <%= @original_doc.status %>
-        </span>
+        <%= render partial: "admin/original_docs/original_doc_status", locals: { doc: @original_doc } %>
       </div>
     </div>
 

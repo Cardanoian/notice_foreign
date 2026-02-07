@@ -1,4 +1,6 @@
 class OriginalDoc < ApplicationRecord
+  include Turbo::Broadcastable
+
   belongs_to :school
   belongs_to :uploader, class_name: "User"
   has_many :docs, dependent: :destroy

@@ -1,0 +1,6 @@
+<span id="<%= dom_id(doc, :status) %>">
+  <% status_badge = { 'pending' => 'badge-yellow', 'processing' => 'badge-blue', 'completed' => 'badge-green', 'failed' => 'badge-coral' } %>
+  <span class="badge <%= status_badge[doc.status] %>">
+    <%= doc.status %>
+  </span>
+</span>

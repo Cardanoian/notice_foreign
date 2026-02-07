@@ -1,0 +1,22 @@
+<tr id="<%= dom_id(doc, :row) %>">
+  <td class="font-mono text-white">#<%= doc.id %></td>
+  <td class="text-white font-medium"><%= doc.school.name %></td>
+  <td class="text-white"><%= doc.uploaded_at&.strftime('%Y-%m-%d %H:%M') %></td>
+  <td>
+    <% status_badge = { 'pending' => 'badge-yellow', 'processing' => 'badge-blue', 'completed' => 'badge-green', 'failed' => 'badge-coral' } %>
+    <span class="badge <%= status_badge[doc.status] %>">
+      <%= doc.status %>
+    </span>
+  </td>
+  <td>
+    <span class="badge badge-teal"><%= doc.docs.count %><%= t('admin.docs.count_suffix') %></span>
+  </td>
+  <td>
+    <div class="flex items-center gap-3">
+      <%= link_to t('admin.docs.view'), admin_original_doc_path(doc), class: "text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors" %>
+      <%= button_to admin_original_doc_path(doc), method: :delete, data: { turbo_confirm: t('admin.docs.delete_confirm') }, class: "btn-danger !py-1.5 !px-3 text-xs" do %>
+        <%= t('admin.docs.delete') %>
+      <% end %>
+    </div>
+  </td>
+</tr>
